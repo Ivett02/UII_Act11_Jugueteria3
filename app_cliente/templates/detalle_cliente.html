@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ cliente.nombre }} {{ cliente.apellido }} | Clientes{% endblock %}
+
+{% block contenido %}
+<article class="client-detail">
+    <div class="client-banner" style="display:flex;gap:20px;align-items:center;">
+        {% if cliente.foto_cliente %}
+            <img src="{{ cliente.foto_cliente.url }}" alt="Foto de {{ cliente.nombre }}" 
+                 class="client-img" style="width:180px;height:180px;object-fit:cover;border-radius:8px;">
+        {% else %}
+            <div class="detail-placeholder" 
+                 style="width:180px;height:180px;display:flex;align-items:center;justify-content:center;
+                        background:#eee;border-radius:8px;">👤
+            </div>
+        {% endif %}
+
+        <div class="client-info">
+            <h1>{{ cliente.nombre }} {{ cliente.apellido }}</h1>
+            <p><strong>Edad:</strong> {{ cliente.edad }}</p>
+            <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+            <p><strong>Dirección:</strong> {{ cliente.direccion }}</p>
+
+            {% if cliente.id_sucursal %}
+                <h2>Datos de la Sucursal</h2>
+                <p><strong>Nombre:</strong> {{ cliente.id_sucursal.nombre }}</p>
+                <p><strong>Dirección:</strong> {{ cliente.id_sucursal.direccion }}</p>
+                <p><strong>Ciudad:</strong> {{ cliente.id_sucursal.ciudad }}</p>
+                <p><strong>Estado:</strong> {{ cliente.id_sucursal.estado }}</p>
+                <p><strong>Teléfono sucursal:</strong> {{ cliente.id_sucursal.telefono }}</p>
+            {% else %}
+                <p><strong>Sucursal:</strong> N/A</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="detail-actions" style="margin-top:20px;">
+        <a href="{% url 'app:editar_cliente' cliente.id %}" class="btn btn-secondary">✏️ Editar</a>
+        <a href="{% url 'app:borrar_cliente' cliente.id %}" class="btn btn-danger">🗑️ Borrar</a>
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }} | Clientes{% endblock %}
+
+{% block contenido %}
+<h2>{{ titulo }}</h2>
+<form method="post" enctype="multipart/form-data" class="form-styled">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'app:listar_clientes' %}" class="btn">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
